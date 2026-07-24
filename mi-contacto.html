@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi contacto | Tatiana Campo Villalba</title>
+  <link rel="stylesheet" href="style.css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mynerve&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVEGACIÓN ===== -->
+  <header class="header">
+    <div class="header__bar">
+      <a href="index.html"><img class="logo" src="asset/img/logo.png" alt="Logo de página: Tatiana"></a>
+      <nav class="nav">
+        <a href="index.html#proyectos">Proyectos</a>
+        <a href="sobre-mi.html">Sobre mi</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="mi-contacto.html">Mi contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ===== CONTACTO ===== -->
+    <section class="case-section">
+      <h2 class="case-title">Mi contacto</h2>
+      <div class="split">
+        <div class="split__col">
+          <h3 class="titulo-script">Hablemos</h3>
+          <p class="case-parrafo">
+            ¿Tenés un proyecto en mente o querés trabajar juntos? Escribime y te
+            respondo a la brevedad.
+          </p>
+          <ul class="case-lista">
+            <li>Email: <a href="mailto:tu-email@ejemplo.com">tu-email@ejemplo.com</a></li>
+            <li>LinkedIn: <a href="#">/in/tu-usuario</a></li>
+            <li>Ubicación: Buenos Aires, Argentina</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3 class="info-box__sub">Enviame un mensaje</h3>
+          <form class="form">
+            <p class="form__grupo">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Ingresá tu nombre" required>
+            </p>
+            <p class="form__grupo">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="Ingresá tu email" required>
+            </p>
+            <p class="form__grupo">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Contame sobre tu proyecto" required></textarea>
+            </p>
+            <p>
+              <button type="submit" class="form__btn">Enviar →</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2026 Tatiana Campo Villalba. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
