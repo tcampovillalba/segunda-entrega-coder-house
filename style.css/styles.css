@@ -1,0 +1,615 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;          /* el scroll se desliza suave */
+  scroll-snap-type: proximity;    /* engancha sí o sí por sección (eje vertical) */
+}
+
+/* ===== ESTILOS GENERALES DEL BODY ===== */
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #1a1a1a;
+  background-color: #ffffff;                                 /* color de respaldo */
+  background-image: url('../asset/img/light_grey_dots_background.jpg'); /* el fondo de puntos */
+  background-repeat: repeat;                                  /* se repite por toda la página */
+  background-size: 200px auto;                               /* tamaño del mosaico (controla la densidad de puntos) */
+  line-height: 1.5;
+
+  /* ===== STICKY FOOTER (footer anclado al fondo) ===== */
+  min-height: 100vh;        /* el body ocupa al menos toda la altura de la pantalla */
+  display: flex;            /* convierte el body en contenedor flex */
+  flex-direction: column;   /* apila header → contenido → footer en vertical */
+}
+.especial_fotnt {
+  font-family: 'Mynerve', serif;
+  color:#e8590c;
+  line-height: 1.5;
+  width: 400px;
+
+}
+/* Centra el contenido y le da un ancho máximo */
+.contenedor {
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;        /* ocupa el ancho disponible (hasta el max-width) */
+  flex: 1;            /* crece para empujar el footer hacia el fondo */
+}
+
+/* ===== HEADER ===== */
+/* Contenedor sticky que ocupa todo el ancho con el color de fondo de la página.
+   Su padding crea un "marco" blanco que tapa el contenido que pasa por detrás,
+   dejando SIEMPRE un espacio en blanco fijo arriba y abajo del nav. */
+.header {
+  position: sticky;
+  top: -16px;
+  padding: 16px 0;    
+  border-radius: 0  0 16px 16px;           /* el "gap" en blanco que queda fijo arriba y abajo */
+}
+
+/* La barra crema visible (lo que se ve como menú) */
+.header__bar {
+  display: flex;                  /* activa flexbox */
+  justify-content: space-between; /* logo a la izquierda, nav a la derecha */
+  align-items: center;            /* centra verticalmente */
+  background-color: #f3ead7;
+  padding: 18px 32px;
+  max-width: 1000px;
+  margin: 0 auto;                 /* centra la barra */
+  border-radius: 16px;            /* esquinas redondeadas al inicio */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);  /* sombra suave */
+
+  /* ===== ANIMACIÓN SEGÚN EL SCROLL (scroll-driven animation) ===== */
+  animation-name: pegar-header;          /* la animación de abajo */
+  animation-fill-mode: both;             /* mantiene el estado final al terminar */
+  animation-timing-function: linear;     /* avanza parejo con el scroll */
+  animation-timeline: scroll(root);      /* se controla con el scroll de la página, no con el tiempo */
+  animation-range: 0px 16px;             /* ocurre solo en los primeros 16px de scroll */
+}
+
+/* De esquinas redondeadas (inicio) a esquinas superiores cuadradas (pegado arriba) */
+@keyframes pegar-header {
+  from { border-radius: 16px; }            /* al inicio: las 4 esquinas redondeadas */
+  to   { border-radius: 0 0 16px 16px; }   /* pegado: arriba cuadrado, abajo redondeado */
+}
+
+
+.logo {
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 600;
+  width: 120px;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;                      /* separación entre los links */
+}
+
+.nav a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 21px;
+  position: relative;              /* necesario para el subrayado de abajo */
+  transition: color 0.2s ease;     /* el cambio de color es suave */
+}
+
+/* Línea que aparece debajo del texto (no agranda la tipografía) */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;                        /* arranca sin ancho (invisible) */
+  height: 2px;
+  background-color: #F2722C;
+  transition: width 0.3s ease;     /* la línea crece suave */
+}
+
+.nav a:hover {
+  color: #F2722C;
+}
+
+.nav a:hover::after {
+  width: 100%;                     /* al pasar el mouse, la línea se completa */
+}
+
+.nav a:active {
+  color: #035044;
+}
+
+.nav a:active::after {
+  background-color: #035044;       /* la línea se pone verde al hacer click */
+}
+/* ===== PUNTOS DE ENGANCHE DEL SCROLL ===== */
+/* Cada sección se "engancha" por su borde de arriba al scrollear.
+   scroll-margin-top deja aire para que el header sticky no la tape. */
+.hero,
+.toolbar,
+.casos {
+  scroll-snap-align: start;
+  scroll-margin-top: 100px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  margin: 20px 0;
+}
+
+
+
+.hero__titulo {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+/* El nombre destacado en naranja */
+.destacado {
+  color: #e8590c;
+  font-style: italic;
+  font-weight: 600;
+  max-width: 400px;
+}
+
+.hero__descripcion {
+  font-size: 21px;
+  color: #555;
+  max-width: 500px;
+}
+
+.hero__imagen img {
+  width: 4340.19;
+  height: 409PX;
+  object-fit: cover;
+  border-radius: 100px 100px 12px 12px; /* forma de arco arriba */
+}
+
+/* ===== BANNER DE CASO (página Provincia ART) ===== */
+.banner {
+  display: flex;                 /* centra el logo + nombre */
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background-color: #c9dcdc;     /* celeste grisáceo del caso */
+  border-radius: 8px 8px 0 0;
+  padding: 48px 20px;
+  margin: 24px 0 0;
+}
+
+.banner__logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.banner__nombre {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0b3a53;
+}
+
+.banner__nombre strong {
+  font-weight: 700;
+}
+
+/* ===== TOOLBAR ===== */
+.toolbar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background-color: #f0d98c;
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+  font-size: 20px;
+  color: #333;
+}
+
+/* ===== CASOS DE ESTUDIO ===== */
+.casos {
+  margin: 48px 0;
+}
+
+.casos__titulo {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* La grilla de tarjetas con flexbox */
+.grid {
+  display: flex;
+  flex-wrap: wrap;                /* permite que pasen a la fila siguiente */
+  gap: 20px;
+}
+
+/* ===== TARJETA (CARD) ===== */
+.card {
+  display: flex;
+  flex-direction: column;         /* apila el contenido en vertical */
+  /* 3 columnas: cada una ~33% menos el espacio del gap */
+  flex: 1 1 calc(33.333% - 14px);
+  min-width: 200px;
+  background-color: #d7e0db;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 150px;
+}
+
+.card__icono {
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.card__titulo {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.card__texto {
+  font-size: 13px;
+  color: #666;
+}
+
+/* El link "Ver caso" empujado al fondo de la tarjeta */
+.card__link {
+  margin-top: auto;              /* empuja este elemento hacia abajo */
+  align-self: flex-end;          /* lo alinea a la derecha */
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+}
+.card__link:hover {
+  margin-top: auto;              /* empuja este elemento hacia abajo */
+  align-self: flex-end;          /* lo alinea a la derecha */
+  text-decoration: none;
+  color: #F2722C;
+  font-size: 13px;
+}
+.card__link:active {
+  margin-top: auto;              /* empuja este elemento hacia abajo */
+  align-self: flex-end;          /* lo alinea a la derecha */
+  text-decoration: none;
+  color: #035044;
+  font-size: 13px;
+}
+.card__footer{
+  border-top: 1px solid #ccc;
+  margin-top: 16px;
+  padding-top: 12px;
+  text-align: right;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: #f3ead7;
+  text-align: center;
+  padding: 32px 20px;
+  margin-top: 48px;
+  font-size: 14px;
+  color: #333;
+}
+
+.footer__legal {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== PÁGINA DE CASO (Preventores) ===== */
+
+/* Breadcrumb (migas de navegación) */
+.breadcrumb {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin: 16px 0 8px;
+}
+.breadcrumb a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.breadcrumb a:hover { color: #F2722C; }
+.breadcrumb__actual { color: #035044; font-weight: 600; }
+
+/* Sección genérica del caso */
+.case-section { margin: 40px 0; }
+
+.case-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.case-intro {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.5;
+  max-width: 680px;
+  margin-bottom: 24px;
+}
+
+/* Título manuscrito (reutiliza la fuente Mynerve del sitio) */
+.titulo-script {
+  font-family: 'Mynerve', cursive;
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.case-parrafo {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.case-lista {
+  font-size: 14px;
+  color: #444;
+  padding-left: 20px;
+}
+.case-lista li { margin-bottom: 8px; }
+
+.case-img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 8px;
+  margin-top: 16px;
+  display: block;
+}
+
+/* Dos columnas: texto + media */
+.split {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.split__col,
+.split__media,
+.stats,
+.info-box { flex: 1; }            /* columnas iguales */
+
+.split__media img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Caja con borde (Contexto / Problema) */
+.info-box {
+  background-color: #ffffff;   /* fondo blanco (tapa la textura de puntos de la página) */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 24px;
+}
+.info-box__sub {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+.info-box p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+}
+.info-box ul {
+  font-size: 14px;
+  color: #444;
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.info-box ul li { margin-bottom: 4px; }
+
+/* Banda de color destacada (reutiliza el verde de las cards) */
+.band {
+  background-color: #d7e0db;
+  border-radius: 12px;
+  padding: 40px;
+  margin: 40px 0;
+}
+
+/* Grilla de estadísticas (2 columnas) */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 40px;
+}
+.stat { flex: 1 1 calc(50% - 20px); min-width: 150px; }
+.stat__label { font-size: 15px; font-weight: 600; }
+.stat__num {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 4px 0 8px;
+}
+.stat__desc { font-size: 13px; color: #555; }
+
+/* Responsive de la página de caso */
+@media (max-width: 768px) {
+  .split { flex-direction: column; }   /* las dos columnas se apilan */
+  .case-img { max-width: none; }
+}
+@media (max-width: 600px) {
+  .stat { flex: 1 1 100%; }            /* cada estadística a ancho completo */
+  .band { padding: 28px 20px; }
+}
+
+/* ===== RESPONSIVE: HEADER EN MOBILE Y TABLET ===== */
+/* En pantallas hasta 1024px el header va pegado al borde superior desde el inicio,
+   sin el margen de 16px que usamos en desktop. */
+@media (max-width: 1024px) {
+  .header {
+    top: 0;            /* se fija directo en el borde superior */
+    padding: 0;        /* saca el margen de 16px (arriba y abajo) */
+  }
+
+  .header__bar {
+    animation: none;               /* desactiva la transición de esquinas (no aplica acá) */
+    border-radius: 0 0 16px 16px;  /* arriba cuadrado desde el inicio, abajo redondeado */
+  }
+}
+
+/* ===== RESPONSIVE (pantallas chicas) ===== */
+@media (max-width: 600px) {
+  /* En mobile el header se apila: logo arriba, nav abajo */
+  .header__bar {
+    flex-direction: column;       /* apila en vertical en vez de en fila */
+    align-items: center;      /* alinea a la izquierda */
+    gap: 12px;                    /* separación entre el logo y el nav */
+  }
+
+  .hero {
+    flex-direction: column;       /* texto e imagen uno debajo del otro */
+    text-align: center;
+  }
+
+  .card {
+    flex: 1 1 100%;               /* tarjetas a ancho completo */
+  }
+}
+
+/* ===== FORMULARIO DE CONTACTO ===== */
+
+/* Cada grupo = etiqueta + campo */
+.form__grupo {
+  margin-bottom: 18px;
+}
+
+/* Etiquetas: en su propia línea, arriba del campo */
+.form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+  transition: color 0.2s ease;
+}
+
+/* Campos: input de texto/email y textarea comparten la misma base */
+.form input,
+.form textarea {
+  width: 100%;
+  font-family: inherit;            /* usa la tipografía del sitio */
+  font-size: 14px;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  border: 1.5px solid #d8ccae;     /* borde beige suave (tono de tu paleta crema) */
+  border-radius: 8px;              /* mismo radio que las cajas del sitio */
+  padding: 12px 14px;
+  /* la transición hace que TODOS los cambios de estado sean suaves */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* El textarea solo se puede estirar hacia abajo (no rompe el ancho) */
+.form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* Texto de ayuda dentro del campo (placeholder) */
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #9a9a9a;
+}
+
+/* La etiqueta se pinta de naranja cuando su campo está activo */
+.form__grupo:focus-within label {
+  color: #F2722C;
+}
+
+/* ---------- ESTADO: HOVER (mouse encima) ---------- */
+.form input:hover,
+.form textarea:hover {
+  border-color: #F2722C;           /* naranja de tu marca */
+}
+
+/* ---------- ESTADO: FOCUS (campo seleccionado/escribiendo) ---------- */
+.form input:focus,
+.form textarea:focus {
+  outline: none;                   /* saca el contorno gris por defecto del navegador */
+  border-color: #F2722C;
+  box-shadow: 0 0 0 3px rgba(242, 114, 44, 0.20);  /* aro naranja suave alrededor */
+  background-color: #fffdfa;
+}
+
+/* ---------- ESTADO: VÁLIDO (completado OK) ---------- */
+/* :user-valid se activa recién DESPUÉS de que la persona interactúa con el campo */
+.form input:user-valid,
+.form textarea:user-valid {
+  border-color: #035044;           /* verde de tu paleta */
+}
+
+/* ---------- ESTADO: ERROR (dato inválido o vacío) ---------- */
+.form input:user-invalid,
+.form textarea:user-invalid {
+  border-color: #d64545;           /* rojo de error */
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.15);
+  background-color: #fff8f8;
+}
+
+/* ---------- ESTADO: DESHABILITADO ---------- */
+.form input:disabled,
+.form textarea:disabled {
+  background-color: #efece4;
+  border-color: #e0dccf;
+  color: #a8a29a;
+  cursor: not-allowed;             /* muestra el cursor de "no permitido" */
+}
+
+/* ===== BOTÓN ENVIAR ===== */
+.form__btn {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #F2722C;       /* naranja de tu marca */
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+}
+
+/* Botón: hover */
+.form__btn:hover {
+  background-color: #e8590c;       /* naranja más intenso */
+}
+
+/* Botón: focus (cuando se navega con el teclado) */
+.form__btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(242, 114, 44, 0.35);
+}
+
+/* Botón: al hacer click (verde, igual que el resto de tus links) */
+.form__btn:active {
+  background-color: #035044;
+  transform: translateY(1px);      /* se "hunde" un poquito al presionar */
+}
+
+/* Botón: deshabilitado */
+.form__btn:disabled {
+  background-color: #d8ccae;
+  cursor: not-allowed;
+}
